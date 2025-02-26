@@ -3,21 +3,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python File Extension Quiz</title>
+    <title>Python Quiz</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .quiz-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #444;
+            text-align: center;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .option {
+            background: #f9f9f9;
+            padding: 1rem;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            transition: background-color 0.3s ease;
+        }
+        .option:hover {
+            background-color: #e9e9e9;
+        }
+        .option input[type="radio"] {
+            margin-right: 10px;
+        }
+        .feedback {
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+        .correct {
+            color: green;
+        }
+        .incorrect {
+            color: red;
+        }
+        .question {
+            display: none;
+        }
+        .question.active {
+            display: block;
+        }
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1.5rem;
+        }
+        .submit-button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 1.5rem;
+        }
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        .submit-button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
 </head>
 <body>
-    <h1>What is the correct file extension for Python files?</h1>
-    <form>
-        <label>
-            <input type="radio" name="extension" value=".pp"> .pp
-        </label><br>
-        <label>
-            <input type="radio" name="extension" value="pt"> pt
-        </label><br>
-        <label>
-            <input type="radio" name="extension" value=".py"> .py
-        </label><br>
-        <input type="submit" value="Submit Answer">
-    </form>
+    <div class="quiz-container">
+        <h1>Python Quiz</h1>
+        
+        <!-- Question 1: File Extension -->
+        <div class="question active" id="question-1">
+            <h2>1. What is the correct file extension for Python files?</h2>
+            <form id="quiz-form-1">
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="extension" value=".pp"> .pp
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="extension" value="pt"> pt
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="extension" value=".py"> .py
+                    </label>
+                </div>
+            </form>
+            <div id="feedback-1" class="feedback"></div>
+            <div class="navigation-buttons">
+                <button id="next-button-1" class="submit-button" disabled>Next Question</button>
+            </div>
+        </div>
+
+        <!-- Question 2: Python Comment -->
+        <div class="question" id="question-2">
+            <h2>2. Which character is used to define a Python comment?</h2>
+            <form id="quiz-form-2">
+                <div class="options">
+                    <label class="option">
+                        <input type="radio" name="comment" value=" "> (space)
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="comment" value="//"> //
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="comment" value="#"> #
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="comment" value="/*"> /*
+                    </label>
+                </div>
+            </form>
+            <div id="feedback-2" class="feedback"></div>
+        </div>
+    </div>
+
+    <script>
+        const questions = document.querySelectorAll('.question');
+        const nextButton1 = document.getElementById('next-button-1');
+
+        // Validation for Question 1: File Extension
+        const quizForm1 = document.getElementById('quiz-form-1');
+        quizForm1.addEventListener('change', function(event) {
+            const selectedOption = document.querySelector('input[name="extension"]:checked');
+            const feedback = document.getElementById('feedback-1');
+
+            if (selectedOption && selectedOption.value === '.py') {
+                feedback.textContent = 'Correct! 🎉';
+                feedback.className = 'feedback correct';
+                nextButton1.disabled = false; // Enable the Next button
+            } else {
+                feedback.textContent = 'Incorrect. The correct answer is .py.';
+                feedback.className = 'feedback incorrect';
+                nextButton1.disabled = true; // Keep the Next button disabled
+            }
+        });
+
+        // Show next question
+        nextButton1.addEventListener('click', function() {
+            document.getElementById('question-1').classList.remove('active');
+            document.getElementById('question-2').classList.add('active');
+        });
+
+        // Validation for Question 2: Python Comment
+        const quizForm2 = document.getElementById('quiz-form-2');
+        quizForm2.addEventListener('change', function(event) {
+            const selectedOption = document.querySelector('input[name="comment"]:checked');
+            const feedback = document.getElementById('feedback-2');
+
+            if (selectedOption && selectedOption.value === '#') {
+                feedback.textContent = 'Correct! 🎉';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = 'Incorrect. The correct answer is #.';
+                feedback.className = 'feedback incorrect';
+            }
+        });
+    </script>
 </body>
-</
+</html>
